@@ -27,7 +27,7 @@ def write_json_structure(icon_name: str | Path):
     return blueprint
 
 def calculate_proportional_size(image, width=None, height=None):
-    orig_height, orig_width = image.size
+    orig_width, orig_height= image.size
     if width is not None and height is None:
         height = int(round((width / orig_width) * orig_height, 0))
     elif height is not None and width is None:
@@ -40,7 +40,7 @@ def process_image(image_path: Path, invert: bool = False, height: int = None, wi
         if not (width and height):
             width, height = calculate_proportional_size(img, width=width, height=height)
 
-        img = img.resize((height, width), Image.Resampling.HAMMING)
+        img = img.resize((width, height), Image.Resampling.HAMMING)
 
     if invert:
         img = ImageOps.invert(img.convert("RGB"))
