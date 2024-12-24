@@ -77,7 +77,6 @@ def non_rgba_image_to_boolean_matrix(image: Image.Image, threshold=128):
 
     return boolean_matrix
 
-
 def generate_blueprint(matrix: Sequence[Sequence[bool]], json_dict: dict):
     tiles = []
     for y in range(len(matrix)):
@@ -95,9 +94,9 @@ def generate_blueprint(matrix: Sequence[Sequence[bool]], json_dict: dict):
     return json.dumps(json_dict, indent=4)
 
 
-def convert_image_to_matrix(image: Image.Image, is_rgba: bool, threshold: int = 128):
-    if is_rgba:
-        return rgba_image_to_boolean_matrix(image)
+def convert_image_to_matrix(image: Image.Image, threshold: int = 128):
+    if image.mode in ("RGBA", "LA") or (image.mode == "P" and "transparency" in image.info):
+        return rgba_image_to_boolean_matrix(image.convert("RGBA"))
     else:
         grayscale_image = image.convert("L")
         return non_rgba_image_to_boolean_matrix(grayscale_image, threshold)
@@ -117,7 +116,7 @@ def main():
         raise Exception(f"File not found: {input_path}")
 
     image = process_image(input_path, args.invert, args.width, args.height)
-    photo_matrix = convert_image_to_matrix(image, image.mode == "RGBA", threshold=args.threshold)
+    photo_matrix = convert_image_to_matrix(image, threshold=args.threshold)
 
     blueprint_json_str = generate_blueprint(photo_matrix, write_json_structure(input_path.stem))
 
