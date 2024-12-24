@@ -21,7 +21,7 @@ def write_json_structure(icon_name: str | Path):
                 }
             ],
             "item": "blueprint",
-            "version": 562949954994181  # Version Factorio
+            "version": 562949954994181  # Factorio version (currently, stable 2.0.24)
         }
     }
     return blueprint
