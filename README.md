@@ -6,11 +6,11 @@ This script can transfer an image into a blueprint of space platform for the Fac
 
 Original image:
 
-<img src="examples/phoenix.png" alt="PhoenixImage" width="344" height="297">
+<img src="examples/phoenix.png" alt="PhoenixImage">
 
 Result in the game:
 
-<img src="examples/phoenix_in_game.png" alt="PhoenixImage" width="344" height="297">
+<img src="examples/phoenix_in_game.png" alt="PhoenixImage">
 
 
 
