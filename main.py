@@ -116,9 +116,9 @@ def main():
         raise Exception(f"File not found: {input_path}")
 
     image = process_image(input_path, args.invert, args.width, args.height)
-    photo_matrix = convert_image_to_matrix(image, threshold=args.threshold)
+    image_matrix = convert_image_to_matrix(image, threshold=args.threshold)
 
-    blueprint_json_str = generate_blueprint(photo_matrix, write_json_structure(input_path.stem))
+    blueprint_json_str = generate_blueprint(image_matrix, write_json_structure(input_path.stem))
 
     encoded_string = "0" + base64.b64encode(zlib.compress(blueprint_json_str.encode())).decode()
     pyperclip.copy(encoded_string)
