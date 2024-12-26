@@ -108,8 +108,11 @@ def main():
     parser.add_argument("-W", "--width", type=int, default=None, help="Width of the image for conversion", required=False)
     parser.add_argument("-H", "--height", type=int, default=None, help="Height of the image for conversion", required=False)
     parser.add_argument("-I", "--invert", action="store_true", help="Invert the colors of the image", required=False, default=False)
-    parser.add_argument("-T", "--threshold", type=int, default=128, required=False, choices=range(256), help="Threshold value for grayscale conversion (0-255), default is 128")
+    parser.add_argument("-T", "--threshold", type=int, default=128, required=False, help="Threshold value for grayscale conversion (0-255), default is 128")
     args = parser.parse_args()
+
+    if not (0 <= args.threshold <= 255):
+        raise Exception("Threshold value must be between 0 and 255")
 
     input_path = Path(args.file_path)
     if not input_path.is_file():
